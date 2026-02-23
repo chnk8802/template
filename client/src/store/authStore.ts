@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { User, AuthState, LoginCredentials, RegisterData } from '../types/auth.types';
 import { api, setAccessToken } from '../lib/api';
+import { useOrgStore } from './orgStore';
 
 interface AuthActions {
   login: (credentials: LoginCredentials) => Promise<void>;
@@ -60,6 +61,13 @@ export const useAuthStore = create<AuthStore>()(
             isAuthenticated: true,
             isLoading: false,
           });
+
+          // Fetch organizations after login
+          try {
+            await useOrgStore.getState().fetchOrganizations();
+          } catch {
+            // Ignore org fetch errors - user might not have orgs yet
+          }
         } catch (error) {
           set({ isLoading: false });
           throw error;
@@ -85,6 +93,13 @@ export const useAuthStore = create<AuthStore>()(
             isAuthenticated: true,
             isLoading: false,
           });
+
+          // Fetch organizations after registration
+          try {
+            await useOrgStore.getState().fetchOrganizations();
+          } catch {
+            // Ignore org fetch errors - new users won't have orgs yet
+          }
         } catch (error) {
           set({ isLoading: false });
           throw error;
@@ -156,6 +171,7 @@ export const useAuthStore = create<AuthStore>()(
       name: 'auth-storage',
       partialize: (state) => ({
         accessToken: state.accessToken,
+        isAuthenticated: state.isAuthenticated,
       }),
     }
   )

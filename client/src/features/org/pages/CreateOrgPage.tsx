@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useCreateOrganization } from '../api/useOrg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,7 +48,8 @@ export default function CreateOrgPage() {
         name: formData.name,
         slug: formData.slug,
       });
-      navigate(`/${result.org.slug}/dashboard`);
+      // Navigate to the new organization's dashboard
+      navigate(`/${result.org.slug}/dashboard`, { replace: true });
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to create organization');
     }
@@ -117,15 +118,6 @@ export default function CreateOrgPage() {
           >
             {createOrgMutation.isPending ? 'Creating...' : 'Create Organization'}
           </Button>
-
-          <div className="text-center">
-            <Link
-              to="/dashboard"
-              className="text-sm text-indigo-600 hover:text-indigo-500"
-            >
-              Skip for now
-            </Link>
-          </div>
         </form>
       </div>
     </div>

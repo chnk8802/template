@@ -4,7 +4,7 @@ import { Organization, IOrganization } from '../models/Organization.js';
 import { Membership, IMembership } from '../models/Membership.js';
 import { Invitation, IInvitation } from '../models/Invitation.js';
 import { User } from '../models/User.js';
-import { generateNumericId } from '../utils/numericId.js';
+import { generateNumericId } from '../utils/dbplugins.js';
 import type { Role } from '../validators/org.validator.js';
 
 /**

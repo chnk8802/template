@@ -1,8 +1,8 @@
 import mongoose, { Schema, Model } from 'mongoose';
-import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/numericId.js';
+import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/dbplugins.js';
 
 export interface ITest {
-  _id: string;
+  id: string;
   orgId: string;
   title: string;
   description?: string;
@@ -17,10 +17,6 @@ type TestModel = Model<ITest>;
 
 const testSchema = new Schema<ITest, TestModel>(
   {
-    _id: {
-      type: String,
-      required: true,
-    },
     orgId: {
       type: String,
       ref: 'Organization',
@@ -54,7 +50,6 @@ const testSchema = new Schema<ITest, TestModel>(
     },
   },
   {
-    _id: false,
     id: false,
   }
 );

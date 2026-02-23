@@ -1,5 +1,5 @@
 import { Schema, model, Model } from 'mongoose';
-import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/numericId.js';
+import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/dbplugins.js';
 
 export enum UserStatus {
   ACTIVE = 'active',
@@ -29,6 +29,7 @@ export interface IUserMethods {
 type UserModel = Model<IUser, {}, IUserMethods>;
 
 const userSchema = new Schema<IUser, UserModel, IUserMethods>(
+
   {
     email: {
       type: String,
@@ -67,7 +68,6 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
     },
   },
   {
-    _id: false,
     id: false,
   }
 );

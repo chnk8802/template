@@ -1,7 +1,7 @@
 import { customAlphabet } from 'nanoid';
 import { Schema } from 'mongoose';
 
-// Generate numeric-only IDs (24 digits for uniqueness)
+// Generate numeric-only IDs (24 digits for uniqueness) abcdefghijklmnopqrstuvwxyz0123456789
 const nanoid = customAlphabet('0123456789', 24);
 
 /**

@@ -1,5 +1,5 @@
 import { Schema, model, Model } from 'mongoose';
-import { numericIdPlugin, timestampsPlugin } from '../utils/numericId.js';
+import { numericIdPlugin, timestampsPlugin } from '../utils/dbplugins.js';
 
 export interface IRefreshToken {
   id: string;
@@ -47,7 +47,6 @@ const refreshTokenSchema = new Schema<IRefreshToken, RefreshTokenModel>(
     },
   },
   {
-    _id: false,
     id: false,
   }
 );

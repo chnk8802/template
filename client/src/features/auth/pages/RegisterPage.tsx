@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useRegister } from '../api/useAuth';
+import { useOrgStore } from '@/store/orgStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
   const registerMutation = useRegister();
+  const { organizations } = useOrgStore();
   
   const [formData, setFormData] = useState({
     email: '',
@@ -45,7 +47,15 @@ export default function RegisterPage() {
         firstName: formData.firstName,
         lastName: formData.lastName,
       });
-      navigate('/dashboard');
+
+      // Navigate based on organization status
+      // The auth store already fetched organizations
+      const updatedOrgs = useOrgStore.getState().organizations;
+      if (updatedOrgs.length > 0) {
+        navigate(`/${updatedOrgs[0].org.slug}/dashboard`);
+      } else {
+        navigate('/create-org');
+      }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Registration failed');
     }

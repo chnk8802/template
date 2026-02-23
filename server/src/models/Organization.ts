@@ -1,8 +1,8 @@
 import mongoose, { Schema, Model } from 'mongoose';
-import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/numericId.js';
+import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/dbplugins.js';
 
 export interface IOrganization {
-  _id: string;
+  id: string;
   name: string;
   slug: string;
   logo?: string;
@@ -21,10 +21,6 @@ type OrgModel = Model<IOrganization>;
 
 const organizationSchema = new Schema<IOrganization, OrgModel>(
   {
-    _id: {
-      type: String,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
@@ -71,7 +67,6 @@ const organizationSchema = new Schema<IOrganization, OrgModel>(
     },
   },
   {
-    _id: false,
     id: false,
   }
 );

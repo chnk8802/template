@@ -47,35 +47,27 @@ export const router = createBrowserRouter([
     ),
   },
 
-  // Protected routes
+  // Protected routes that DO NOT require organization
   {
-    path: '/dashboard',
+    path: '/create-org',
     element: (
-      <ProtectedRoute>
-        <DashboardPage />
+      <ProtectedRoute requireOrg={false}>
+        <CreateOrgPage />
       </ProtectedRoute>
     ),
   },
   {
     path: '/no-org',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute requireOrg={false}>
         <NoOrgPage />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '/create-org',
-    element: (
-      <ProtectedRoute>
-        <CreateOrgPage />
       </ProtectedRoute>
     ),
   },
   {
     path: '/accept-invitation',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute requireOrg={false}>
         <AcceptInvitationPage />
       </ProtectedRoute>
     ),
@@ -83,8 +75,18 @@ export const router = createBrowserRouter([
   {
     path: '/settings/profile',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute requireOrg={false}>
         <ProfileSettingsPage />
+      </ProtectedRoute>
+    ),
+  },
+
+  // Protected routes that DO require organization
+  {
+    path: '/dashboard',
+    element: (
+      <ProtectedRoute>
+        <DashboardPage />
       </ProtectedRoute>
     ),
   },

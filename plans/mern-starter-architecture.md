@@ -836,8 +836,8 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   // ... other fields
 }, { 
-  _id: false,  // Disable default ObjectId
-  id: false     // We'll add our own id field via plugin
+  _id: false,
+  id: false
 });
 userSchema.plugin(numericIdPlugin);
 ```

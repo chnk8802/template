@@ -72,7 +72,7 @@ export const registerUser = async (
 
   // Generate tokens
   const tokens = await createAuthTokens(user);
-
+  console.log("User: ", user, "USER: ", toUserResponse(user))
   return {
     user: toUserResponse(user),
     tokens,

@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLogin } from '../api/useAuth';
+import { useOrgStore } from '@/store/orgStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const loginMutation = useLogin();
+  const { organizations } = useOrgStore();
   
   const [formData, setFormData] = useState({
     email: '',
@@ -25,7 +27,15 @@ export default function LoginPage() {
 
     try {
       await loginMutation.mutateAsync(formData);
-      navigate('/dashboard');
+
+      // Navigate based on organization status
+      // The auth store already fetched organizations
+      const updatedOrgs = useOrgStore.getState().organizations;
+      if (updatedOrgs.length > 0) {
+        navigate(`/${updatedOrgs[0].org.slug}/dashboard`);
+      } else {
+        navigate('/create-org');
+      }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed');
     }

@@ -1,5 +1,5 @@
 import { Test, ITest } from '../models/Test.js';
-import { generateNumericId } from '../utils/numericId.js';
+import { generateNumericId } from '../utils/dbplugins.js';
 import type { CreateTestInput, UpdateTestInput, TestStatus } from '../validators/test.validator.js';
 
 /**

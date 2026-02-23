@@ -1,10 +1,10 @@
 import mongoose, { Schema, Model } from 'mongoose';
-import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/numericId.js';
+import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/dbplugins.js';
 
 export type Role = 'org_admin' | 'manager' | 'technician';
 
 export interface IMembership {
-  _id: string;
+  id: string;
   userId: string;
   orgId: string;
   role: Role;
@@ -20,10 +20,6 @@ type MembershipModel = Model<IMembership>;
 
 const membershipSchema = new Schema<IMembership, MembershipModel>(
   {
-    _id: {
-      type: String,
-      required: true,
-    },
     userId: {
       type: String,
       ref: 'User',
@@ -59,7 +55,6 @@ const membershipSchema = new Schema<IMembership, MembershipModel>(
     },
   },
   {
-    _id: false,
     id: false,
   }
 );

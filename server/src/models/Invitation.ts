@@ -1,9 +1,9 @@
 import mongoose, { Schema, Model } from 'mongoose';
-import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/numericId.js';
+import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/dbplugins.js';
 import type { Role } from './Membership.js';
 
 export interface IInvitation {
-  _id: string;
+  id: string;
   email: string;
   orgId: string;
   role: Role;
@@ -21,10 +21,6 @@ type InvitationModel = Model<IInvitation>;
 
 const invitationSchema = new Schema<IInvitation, InvitationModel>(
   {
-    _id: {
-      type: String,
-      required: true,
-    },
     email: {
       type: String,
       required: true,
@@ -71,7 +67,6 @@ const invitationSchema = new Schema<IInvitation, InvitationModel>(
     },
   },
   {
-    _id: false,
     id: false,
   }
 );
