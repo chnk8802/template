@@ -1,12 +1,12 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { ProtectedRoute, AuthRoute } from '@/components/auth/ProtectedRoute';
-import LoginPage from '@/features/auth/pages/LoginPage';
-import RegisterPage from '@/features/auth/pages/RegisterPage';
-import NoOrgPage from '@/pages/NoOrgPage';
-import CreateOrgPage from '@/features/org/pages/CreateOrgPage';
-import AcceptInvitationPage from '@/features/org/pages/AcceptInvitationPage';
-import ProfileSettingsPage from '@/features/settings/pages/ProfileSettingsPage';
-import TestListPage from '@/features/test/pages/TestListPage';
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import { AppRoute } from "@/components/auth/AppRoute";
+import LoginPage from "@/features/auth/pages/LoginPage";
+import RegisterPage from "@/features/auth/pages/RegisterPage";
+import NoOrgPage from "@/pages/NoOrgPage";
+import CreateOrgPage from "@/features/org/pages/CreateOrgPage";
+import AcceptInvitationPage from "@/features/org/pages/AcceptInvitationPage";
+import ProfileSettingsPage from "@/features/settings/pages/ProfileSettingsPage";
+import TestListPage from "@/features/test/pages/TestListPage";
 
 // Placeholder for dashboard - will be created later
 const DashboardPage = () => (
@@ -29,95 +29,95 @@ const OrgDashboardPage = () => (
 );
 
 export const router = createBrowserRouter([
-  // Auth routes (only accessible when not authenticated)
+  // Guest-only routes (redirect if authenticated)
   {
-    path: '/login',
+    path: "/login",
     element: (
-      <AuthRoute>
+      <AppRoute guestOnly={true}>
         <LoginPage />
-      </AuthRoute>
+      </AppRoute>
     ),
   },
   {
-    path: '/register',
+    path: "/register",
     element: (
-      <AuthRoute>
+      <AppRoute guestOnly={true}>
         <RegisterPage />
-      </AuthRoute>
+      </AppRoute>
     ),
   },
 
-  // Protected routes that DO NOT require organization
+  // Authenticated routes without org requirement
   {
-    path: '/create-org',
+    path: "/create-org",
     element: (
-      <ProtectedRoute requireOrg={false}>
+      <AppRoute requireAuth={true}>
         <CreateOrgPage />
-      </ProtectedRoute>
+      </AppRoute>
     ),
   },
   {
-    path: '/no-org',
+    path: "/no-org",
     element: (
-      <ProtectedRoute requireOrg={false}>
+      <AppRoute requireAuth={true}>
         <NoOrgPage />
-      </ProtectedRoute>
+      </AppRoute>
     ),
   },
   {
-    path: '/accept-invitation',
+    path: "/accept-invitation",
     element: (
-      <ProtectedRoute requireOrg={false}>
+      <AppRoute requireAuth={true}>
         <AcceptInvitationPage />
-      </ProtectedRoute>
+      </AppRoute>
     ),
   },
   {
-    path: '/settings/profile',
+    path: "/settings/profile",
     element: (
-      <ProtectedRoute requireOrg={false}>
+      <AppRoute requireAuth={true}>
         <ProfileSettingsPage />
-      </ProtectedRoute>
+      </AppRoute>
     ),
   },
 
-  // Protected routes that DO require organization
+  // Authenticated routes with org requirement
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: (
-      <ProtectedRoute>
+      <AppRoute requireAuth={true} requireOrg={true}>
         <DashboardPage />
-      </ProtectedRoute>
+      </AppRoute>
     ),
   },
 
   // Organization routes (with org slug in URL)
   {
-    path: '/:orgSlug/dashboard',
+    path: "/:orgSlug/dashboard",
     element: (
-      <ProtectedRoute>
+      <AppRoute requireAuth={true} requireOrg={true}>
         <OrgDashboardPage />
-      </ProtectedRoute>
+      </AppRoute>
     ),
   },
   {
-    path: '/:orgSlug/tests',
+    path: "/:orgSlug/tests",
     element: (
-      <ProtectedRoute>
+      <AppRoute requireAuth={true} requireOrg={true}>
         <TestListPage />
-      </ProtectedRoute>
+      </AppRoute>
     ),
   },
 
   // Redirects
   {
-    path: '/',
+    path: "/",
     element: <Navigate to="/dashboard" replace />,
   },
 
   // 404 - will be handled by a proper page later
   {
-    path: '*',
+    path: "*",
     element: (
       <div className="min-h-screen flex items-center justify-center">
         <h1 className="text-2xl font-bold">404 - Page Not Found</h1>

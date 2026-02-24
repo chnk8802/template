@@ -2,6 +2,7 @@ import mongoose, { Schema, Model } from 'mongoose';
 import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/dbplugins.js';
 
 export interface IOrganization {
+  _id: string;
   id: string;
   name: string;
   slug: string;

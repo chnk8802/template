@@ -3,6 +3,7 @@ import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/db
 import type { Role } from './Membership.js';
 
 export interface IInvitation {
+  _id: string;
   id: string;
   email: string;
   orgId: string;

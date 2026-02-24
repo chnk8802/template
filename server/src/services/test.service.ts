@@ -10,7 +10,7 @@ export const createTest = async (
   userId: string,
   data: CreateTestInput
 ): Promise<ITest> => {
-  const testId = await generateNumericId('tests');
+  const testId = generateNumericId('tests');
   
   const test = await Test.create({
     _id: testId,

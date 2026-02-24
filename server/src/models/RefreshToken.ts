@@ -2,6 +2,7 @@ import { Schema, model, Model } from 'mongoose';
 import { numericIdPlugin, timestampsPlugin } from '../utils/dbplugins.js';
 
 export interface IRefreshToken {
+  _id: string;
   id: string;
   token: string; // hashed token
   userId: string;

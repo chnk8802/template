@@ -4,6 +4,7 @@ import { numericIdPlugin, softDeletePlugin, timestampsPlugin } from '../utils/db
 export type Role = 'org_admin' | 'manager' | 'technician';
 
 export interface IMembership {
+  _id: string;
   id: string;
   userId: string;
   orgId: string;

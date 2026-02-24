@@ -8,6 +8,7 @@ export enum UserStatus {
 }
 
 export interface IUser {
+  _id: string;
   id: string;
   email: string;
   passwordHash: string;

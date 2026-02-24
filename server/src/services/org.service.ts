@@ -71,7 +71,7 @@ export const createOrganization = async (
     }
 
     // Create organization
-    const orgId = await generateNumericId('organizations');
+    const orgId = generateNumericId('organizations');
     const [org] = await Organization.create(
       [
         {
@@ -86,7 +86,7 @@ export const createOrganization = async (
     );
 
     // Create membership for creator as org_admin
-    const membershipId = await generateNumericId('memberships');
+    const membershipId = generateNumericId('memberships');
     const [membership] = await Membership.create(
       [
         {
@@ -260,7 +260,7 @@ export const inviteMember = async (
     }
 
     // Create invitation
-    const invitationId = await generateNumericId('invitations');
+    const invitationId = generateNumericId('invitations');
     const token = await generateInvitationToken();
 
     const [invitation] = await Invitation.create(
@@ -360,7 +360,7 @@ export const acceptInvitation = async (
     }
 
     // Create membership
-    const membershipId = await generateNumericId('memberships');
+    const membershipId = generateNumericId('memberships');
     const [membership] = await Membership.create(
       [
         {
