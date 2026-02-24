@@ -7,7 +7,7 @@ export const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.PORT || '5000', 10),
   mongodb: {
-    uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/mern-starter',
+    uri: process.env.MONGODB_URI || 'mongodb://localhost:27017,localhost:27018,localhost:27019/?replicaSet=rs0',
   },
   jwt: {
     accessSecret: process.env.JWT_ACCESS_SECRET || 'access-secret',
